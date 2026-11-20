@@ -862,7 +862,7 @@ void check4Gmodule() {
     }
   }
 
-  raiseModemBaud(460800);
+  raiseModemBaud(115200);
   // Restart takes quite some time
   // To skip it, call init() instead of restart()
 
@@ -3213,15 +3213,12 @@ void performUpdate() {
         Serial.println("OTA partition initialized.");
       }
 
-    } else if (statusLine.indexOf(" 206 ") >= 0 &&
-               responseLength == (long)(totalLength - written) &&
-               otaRangeStart(headers) == (long)written) {
+    } else if (statusLine.indexOf(" 206 ") >= 0 && responseLength == (long)(totalLength - written) && otaRangeStart(headers) == (long)written) {
 
       responseOk = true;
       Serial.println("Resume response verified.");
 
-    } else if (statusLine.indexOf(" 200 ") >= 0 &&
-               responseLength == (long)totalLength) {
+    } else if (statusLine.indexOf(" 200 ") >= 0 && responseLength == (long)totalLength) {
 
       // Server ignored Range and sent the whole image again.
       skipRemaining = written;
